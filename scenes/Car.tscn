@@ -5,9 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://cl77fs6xe5ad" path="res://assets/Car/Tyre/tyre.glb" id="2_sogiu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tt6i3"]
-size = Vector3(2.16017, 1.40311, 5.57494)
+size = Vector3(2.16017, 0.817613, 5.57494)
 
 [node name="Car" type="VehicleBody3D"]
+center_of_mass_mode = 1
+center_of_mass = Vector3(0.5, 0.7, 1)
 gravity_scale = 4.0
 script = ExtResource("1_xigl6")
 
@@ -61,3 +63,6 @@ suspension_travel = 0.15
 suspension_stiffness = 120.0
 
 [node name="tyre" parent="VehicleWheel_FR" instance=ExtResource("2_sogiu")]
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.7, 1)
