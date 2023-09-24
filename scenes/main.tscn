@@ -1,9 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuu4148t7pxv1"]
+[gd_scene load_steps=15 format=3 uid="uid://cuu4148t7pxv1"]
 
 [ext_resource type="Script" path="res://scenes/globe.gd" id="1_o6sel"]
 [ext_resource type="PackedScene" uid="uid://u04the4bg08e" path="res://scenes/Car.tscn" id="1_tjjsf"]
 [ext_resource type="Script" path="res://scenes/gunController.gd" id="2_t26ed"]
 [ext_resource type="PackedScene" uid="uid://dlgkedo7dkvpa" path="res://scene/objects/autoRifle/steampunk_rifle.tscn" id="3_lv3ox"]
+[ext_resource type="PackedScene" uid="uid://bajva26tn6guk" path="res://Models/Crypt/crypt.glb" id="6_ojyu6"]
+[ext_resource type="PackedScene" uid="uid://ldfyyuto8arm" path="res://scene/zombie/mutant.tscn" id="6_wsylp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1tklr"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_egc8t"]
+sky_material = SubResource("ProceduralSkyMaterial_1tklr")
+
+[sub_resource type="Environment" id="Environment_2ffjb"]
+background_mode = 2
+sky = SubResource("Sky_egc8t")
+tonemap_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4t8ij"]
 albedo_color = Color(0.63911, 0.0358028, 0.0208392, 1)
@@ -20,10 +34,18 @@ data = PackedVector3Array(-250, 0.5, 250, 250, 0.5, 250, -250, -0.5, 250, 250, 0
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_mlrbw"]
 data = PackedVector3Array(-250, 0.5, 250, 250, 0.5, 250, -250, -0.5, 250, 250, 0.5, 250, 250, -0.5, 250, -250, -0.5, 250, 250, 0.5, -250, -250, 0.5, -250, 250, -0.5, -250, -250, 0.5, -250, -250, -0.5, -250, 250, -0.5, -250, 250, 0.5, 250, 250, 0.5, -250, 250, -0.5, 250, 250, 0.5, -250, 250, -0.5, -250, 250, -0.5, 250, -250, 0.5, -250, -250, 0.5, 250, -250, -0.5, -250, -250, 0.5, 250, -250, -0.5, 250, -250, -0.5, -250, 250, 0.5, 250, -250, 0.5, 250, 250, 0.5, -250, -250, 0.5, 250, -250, 0.5, -250, 250, 0.5, -250, -250, -0.5, 250, 250, -0.5, 250, -250, -0.5, -250, 250, -0.5, 250, 250, -0.5, -250, -250, -0.5, -250)
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_dlf6v"]
+agent_radius = 23.0
+agent_max_slope = 90.0
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_o6sel")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2ffjb")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.50554, -4.69513, 5.73384)
 mesh = SubResource("BoxMesh_mr0hd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -99,3 +121,28 @@ fov = 102.1
 
 [node name="SteampunkRifle" parent="GridContainer/backView/gunBack/Head/Camera3D" instance=ExtResource("3_lv3ox")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.3)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_dlf6v")
+
+[node name="crypt2" parent="NavigationRegion3D" instance=ExtResource("6_ojyu6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -23.3908, -4.32047, -20.6332)
+metadata/_edit_group_ = true
+
+[node name="crypt" parent="NavigationRegion3D" instance=ExtResource("6_ojyu6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 10.537, -4.32, -20.633)
+
+[node name="crypt3" parent="NavigationRegion3D" instance=ExtResource("6_ojyu6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, -10.614, -4.32, -20.633)
+
+[node name="crypt4" parent="NavigationRegion3D" instance=ExtResource("6_ojyu6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 1.12, -4.32, -20.633)
+
+[node name="crypt5" parent="NavigationRegion3D" instance=ExtResource("6_ojyu6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 21.64, -4.32, -20.633)
+
+[node name="crypt6" parent="NavigationRegion3D" instance=ExtResource("6_ojyu6")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 30.765, -4.32, -20.633)
+
+[node name="mutant" parent="." instance=ExtResource("6_wsylp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -4.16781, -53)
