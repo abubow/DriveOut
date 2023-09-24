@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cuu4148t7pxv1"]
 
-[ext_resource type="PackedScene" uid="uid://b2072hdfjpa7f" path="res://scenes/Car.tscn" id="1_tjjsf"]
+[ext_resource type="PackedScene" uid="uid://u04the4bg08e" path="res://scenes/Car.tscn" id="1_tjjsf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4t8ij"]
 albedo_color = Color(0.63911, 0.0358028, 0.0208392, 1)
@@ -36,8 +36,11 @@ mesh = SubResource("BoxMesh_mr0hd")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_mlrbw")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.914819, 0.403865, 0, -0.403865, 0.914819, 0, 5.30772, 0)
+
 [node name="Car" parent="." instance=ExtResource("1_tjjsf")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.68264, 1.23248, 2.96954)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0046382, 0.91304, -1.66003)
 
 [node name="Camera3D" type="Camera3D" parent="Car"]
-transform = Transform3D(-1, -1.30344e-08, -8.94114e-08, -3.91031e-08, 0.954506, 0.298191, 8.1457e-08, 0.298191, -0.954506, 2.38419e-07, 4.7705, -5.18577)
+transform = Transform3D(-1, -1.30344e-08, -8.94114e-08, -3.91031e-08, 0.954506, 0.298191, 8.1457e-08, 0.298191, -0.954506, 0.538134, 4.2707, -5.10541)

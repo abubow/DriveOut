@@ -1,44 +1,63 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2072hdfjpa7f"]
+[gd_scene load_steps=5 format=3 uid="uid://u04the4bg08e"]
 
 [ext_resource type="PackedScene" uid="uid://dqam7wlwbih4v" path="res://assets/Car/CarBody/car.glb" id="1_se26g"]
 [ext_resource type="Script" path="res://scenes/Car.gd" id="1_xigl6"]
 [ext_resource type="PackedScene" uid="uid://cl77fs6xe5ad" path="res://assets/Car/Tyre/tyre.glb" id="2_sogiu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tt6i3"]
-size = Vector3(2.16017, 1.09899, 5.57494)
+size = Vector3(2.16017, 1.40311, 5.57494)
 
 [node name="Car" type="VehicleBody3D"]
+gravity_scale = 4.0
 script = ExtResource("1_xigl6")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521527, 0.695371, 0.616351)
-shape = SubResource("BoxShape3D_tt6i3")
+[node name="car" parent="." instance=ExtResource("1_se26g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.525118, -0.220647, 0.619331)
 
-[node name="car" parent="CollisionShape3D" instance=ExtResource("1_se26g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00359058, -0.916018, 0.00297976)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521527, 0.569273, 0.616351)
+shape = SubResource("BoxShape3D_tt6i3")
 
 [node name="VehicleWheel_RL" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47518, 0.225514, -0.769106)
 use_as_traction = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.1
+suspension_travel = 0.15
+suspension_stiffness = 80.0
 
 [node name="tyre" parent="VehicleWheel_RL" instance=ExtResource("2_sogiu")]
 
 [node name="VehicleWheel_FL" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47518, 0.225514, 2.53449)
-use_as_traction = true
 use_as_steering = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.5
+suspension_travel = 0.15
+suspension_stiffness = 120.0
 
 [node name="tyre" parent="VehicleWheel_FL" instance=ExtResource("2_sogiu")]
 
 [node name="VehicleWheel_RR" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387841, 0.225514, -0.769106)
 use_as_traction = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.1
+suspension_travel = 0.15
+suspension_stiffness = 80.0
 
 [node name="tyre" parent="VehicleWheel_RR" instance=ExtResource("2_sogiu")]
 
 [node name="VehicleWheel_FR" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387841, 0.225514, 2.53449)
-use_as_traction = true
 use_as_steering = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.5
+suspension_travel = 0.15
+suspension_stiffness = 120.0
 
 [node name="tyre" parent="VehicleWheel_FR" instance=ExtResource("2_sogiu")]
