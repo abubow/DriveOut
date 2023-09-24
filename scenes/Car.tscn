@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2072hdfjpa7f"]
+[gd_scene load_steps=5 format=3 uid="uid://b2072hdfjpa7f"]
 
 [ext_resource type="PackedScene" uid="uid://dqam7wlwbih4v" path="res://assets/Car/CarBody/car.glb" id="1_se26g"]
+[ext_resource type="Script" path="res://scenes/Car.gd" id="1_xigl6"]
 [ext_resource type="PackedScene" uid="uid://cl77fs6xe5ad" path="res://assets/Car/Tyre/tyre.glb" id="2_sogiu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tt6i3"]
 size = Vector3(2.16017, 1.09899, 5.57494)
 
 [node name="Car" type="VehicleBody3D"]
+script = ExtResource("1_xigl6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521527, 0.695371, 0.616351)
