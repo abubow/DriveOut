@@ -12,25 +12,31 @@ size = Vector3(2.16017, 1.09899, 5.57494)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.521527, 0.695371, 0.616351)
 shape = SubResource("BoxShape3D_tt6i3")
 
-[node name="car" parent="." instance=ExtResource("1_se26g")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.525118, -0.220647, 0.619331)
+[node name="car" parent="CollisionShape3D" instance=ExtResource("1_se26g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00359058, -0.916018, 0.00297976)
 
 [node name="VehicleWheel_RL" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47518, 0.225514, -0.769106)
+use_as_traction = true
 
 [node name="tyre" parent="VehicleWheel_RL" instance=ExtResource("2_sogiu")]
 
 [node name="VehicleWheel_FL" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47518, 0.225514, 2.53449)
+use_as_traction = true
+use_as_steering = true
 
 [node name="tyre" parent="VehicleWheel_FL" instance=ExtResource("2_sogiu")]
 
 [node name="VehicleWheel_RR" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387841, 0.225514, -0.769106)
+use_as_traction = true
 
 [node name="tyre" parent="VehicleWheel_RR" instance=ExtResource("2_sogiu")]
 
 [node name="VehicleWheel_FR" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387841, 0.225514, 2.53449)
+use_as_traction = true
+use_as_steering = true
 
 [node name="tyre" parent="VehicleWheel_FR" instance=ExtResource("2_sogiu")]
