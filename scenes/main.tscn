@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuu4148t7pxv1"]
+[gd_scene load_steps=9 format=3 uid="uid://cuu4148t7pxv1"]
 
+[ext_resource type="Script" path="res://scenes/globe.gd" id="1_o6sel"]
 [ext_resource type="PackedScene" uid="uid://u04the4bg08e" path="res://scenes/Car.tscn" id="1_tjjsf"]
+[ext_resource type="Script" path="res://scenes/gunController.gd" id="2_t26ed"]
+[ext_resource type="PackedScene" uid="uid://dlgkedo7dkvpa" path="res://scene/objects/autoRifle/steampunk_rifle.tscn" id="3_lv3ox"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4t8ij"]
 albedo_color = Color(0.63911, 0.0358028, 0.0208392, 1)
@@ -18,6 +21,7 @@ data = PackedVector3Array(-250, 0.5, 250, 250, 0.5, 250, -250, -0.5, 250, 250, 0
 data = PackedVector3Array(-250, 0.5, 250, 250, 0.5, 250, -250, -0.5, 250, 250, 0.5, 250, 250, -0.5, 250, -250, -0.5, 250, 250, 0.5, -250, -250, 0.5, -250, 250, -0.5, -250, -250, 0.5, -250, -250, -0.5, -250, 250, -0.5, -250, 250, 0.5, 250, 250, 0.5, -250, 250, -0.5, 250, 250, 0.5, -250, 250, -0.5, -250, 250, -0.5, 250, -250, 0.5, -250, -250, 0.5, 250, -250, -0.5, -250, -250, 0.5, 250, -250, -0.5, 250, -250, -0.5, -250, 250, 0.5, 250, -250, 0.5, 250, 250, 0.5, -250, -250, 0.5, 250, -250, 0.5, -250, 250, 0.5, -250, -250, -0.5, 250, 250, -0.5, 250, -250, -0.5, -250, 250, -0.5, 250, 250, -0.5, -250, -250, -0.5, -250)
 
 [node name="Node3D" type="Node3D"]
+script = ExtResource("1_o6sel")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_mr0hd")
@@ -39,11 +43,59 @@ shape = SubResource("ConcavePolygonShape3D_mlrbw")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.914819, 0.403865, 0, -0.403865, 0.914819, 0, 5.30772, 0)
 
-[node name="Car" parent="." instance=ExtResource("1_tjjsf")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.0046382, 0.91304, -1.66003)
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
 
-[node name="pivot" type="Node3D" parent="Car"]
+[node name="frontView" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="carFront" type="SubViewport" parent="GridContainer/frontView"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="Car" parent="GridContainer/frontView/carFront" node_paths=PackedStringArray("gun") instance=ExtResource("1_tjjsf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.47877, 0.91304, -1.66003)
+gravity_scale = 5.0
+gun = NodePath("../../../backView/gunBack/Head")
+
+[node name="pivot" type="Node3D" parent="GridContainer/frontView/carFront/Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 1.8, -0.8)
 top_level = true
 
-[node name="Camera3D" type="Camera3D" parent="Car/pivot"]
+[node name="Camera3D" type="Camera3D" parent="GridContainer/frontView/carFront/Car/pivot"]
 transform = Transform3D(-1, -1.30344e-08, -8.94114e-08, -3.91031e-08, 0.954506, 0.298191, 8.1457e-08, 0.298191, -0.954506, 0.538134, 4.2707, -5.10541)
+
+[node name="gunAnchor" type="Node3D" parent="GridContainer/frontView/carFront/Car"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.520204, 2.40926, -0.466582)
+
+[node name="backView" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="gunBack" type="SubViewport" parent="GridContainer/backView"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="Head" type="Node3D" parent="GridContainer/backView/gunBack"]
+transform = Transform3D(0.999768, 0.0215357, 0, -0.0215357, 0.999768, 0, 0, 0, 1, -1.10819, 3.16133, -3.24972)
+script = ExtResource("2_t26ed")
+
+[node name="Camera3D" type="Camera3D" parent="GridContainer/backView/gunBack/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.2)
+doppler_tracking = 2
+fov = 102.1
+
+[node name="SteampunkRifle" parent="GridContainer/backView/gunBack/Head/Camera3D" instance=ExtResource("3_lv3ox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.3)

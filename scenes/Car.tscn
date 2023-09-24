@@ -8,8 +8,6 @@
 size = Vector3(2.16017, 0.817613, 5.57494)
 
 [node name="Car" type="VehicleBody3D"]
-center_of_mass_mode = 1
-center_of_mass = Vector3(0.5, 0.7, 1)
 gravity_scale = 4.0
 script = ExtResource("1_xigl6")
 
@@ -25,7 +23,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47518, 0.225514, -0.769106)
 use_as_traction = true
 wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
-wheel_friction_slip = 1.1
+wheel_friction_slip = 2.0
 suspension_travel = 0.15
 suspension_stiffness = 80.0
 
@@ -33,6 +31,7 @@ suspension_stiffness = 80.0
 
 [node name="VehicleWheel_FL" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47518, 0.225514, 2.53449)
+use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
@@ -47,7 +46,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387841, 0.225514, -0.76910
 use_as_traction = true
 wheel_roll_influence = 0.01
 wheel_rest_length = 0.2
-wheel_friction_slip = 1.1
+wheel_friction_slip = 2.0
 suspension_travel = 0.15
 suspension_stiffness = 80.0
 
@@ -55,6 +54,7 @@ suspension_stiffness = 80.0
 
 [node name="VehicleWheel_FR" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.387841, 0.225514, 2.53449)
+use_as_traction = true
 use_as_steering = true
 wheel_roll_influence = 0.01
 wheel_rest_length = 0.2

@@ -1,19 +1,23 @@
 extends VehicleBody3D
 
-const MAX_STEER = 0.6
-const ENGINE_POWER = 300
+const MAX_STEER = 0.8
+const ENGINE_POWER = 150
 
 @onready var cameraPivot = $pivot
 @onready var camera3d = $pivot/Camera3D
 
+@onready var gunAnchor = $gunAnchor
+
+@export var gun:Node3D
 func _ready():
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass
 
 func _physics_process(delta):
-	steering = move_toward(steering, Input.get_axis("turn_right", "turn_left") * MAX_STEER, delta*1.5)
+	steering = move_toward(steering, Input.get_axis("turn_right", "turn_left") * MAX_STEER, delta*0.5)
 	engine_force = Input.get_axis("reverse", "accelerate") * ENGINE_POWER
 	cameraPivot.global_position = cameraPivot.global_position.lerp(global_position, delta * 20.0)
+	gun.global_position = gun.global_position.lerp(gunAnchor.global_position, delta*100.5)
 #const STEER_SPEED = 1.5
 #const STEER_LIMIT = 0.4
 #
