@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bv2xpja0r72au"]
+
+[ext_resource type="Script" path="res://scene/terrian_controller/terrian_controller.gd" id="1_pbiln"]
+
+[node name="TerrianController" type="Node3D"]
+script = ExtResource("1_pbiln")
+
+[node name="TerrianBlockRemoverTimer" type="Timer" parent="."]
+
+[node name="TerrianCount" type="Timer" parent="."]
+
+[node name="TerrianAdderTime" type="Timer" parent="."]
+
+[connection signal="timeout" from="TerrianBlockRemoverTimer" to="." method="_on_terrian_block_remover_timer_timeout"]
+[connection signal="timeout" from="TerrianCount" to="." method="_on_terrian_count_timeout"]
+[connection signal="timeout" from="TerrianAdderTime" to="." method="_on_terrian_adder_time_timeout"]

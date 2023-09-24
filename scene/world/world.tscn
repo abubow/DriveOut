@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=3 uid="uid://c4vuthj5uge6i"]
+
+[ext_resource type="Script" path="res://scene/world/Player.gd" id="1_66jnf"]
+[ext_resource type="Script" path="res://scene/world/world.gd" id="1_pe44m"]
+[ext_resource type="PackedScene" uid="uid://dlgkedo7dkvpa" path="res://scene/objects/autoRifle/steampunk_rifle.tscn" id="2_423jb"]
+[ext_resource type="PackedScene" uid="uid://bv2xpja0r72au" path="res://scene/terrian_controller/terrian_controller.tscn" id="2_nohlc"]
+[ext_resource type="Texture2D" uid="uid://d3radhj6uixps" path="res://Texture/Crosshairs/crosshair161.png" id="5_ygybg"]
+[ext_resource type="Script" path="res://scene/world/CarBackView.gd" id="6_c2ep3"]
+[ext_resource type="Script" path="res://scene/world/BackWeapon.gd" id="6_qke7a"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aye82"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_agclu"]
+sky_material = SubResource("ProceduralSkyMaterial_aye82")
+
+[sub_resource type="Environment" id="Environment_oxgxn"]
+background_mode = 2
+sky = SubResource("Sky_agclu")
+tonemap_mode = 2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_riklu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kyiwv"]
+
+[node name="World" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17076, 0)
+script = ExtResource("1_pe44m")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_oxgxn")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.592337, 0.0457165, 0.804392, 0.751507, 0.391295, 0.531155, -0.290472, 0.919129, -0.266135, 7, 11, -4)
+shadow_enabled = true
+
+[node name="TerrianController" parent="." instance=ExtResource("2_nohlc")]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="CarFront" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="CarFrontView" type="SubViewport" parent="GridContainer/CarFront"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+
+[node name="Player" type="CharacterBody3D" parent="GridContainer/CarFront/CarFrontView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27076, 0)
+script = ExtResource("1_66jnf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridContainer/CarFront/CarFrontView/Player"]
+mesh = SubResource("CapsuleMesh_riklu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GridContainer/CarFront/CarFrontView/Player"]
+shape = SubResource("CapsuleShape3D_kyiwv")
+
+[node name="Camera3D" type="Camera3D" parent="GridContainer/CarFront/CarFrontView/Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0.2)
+doppler_tracking = 2
+current = true
+fov = 102.1
+
+[node name="SteampunkRifle" parent="GridContainer/CarFront/CarFrontView/Player/Camera3D" instance=ExtResource("2_423jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, -0.1, 0)
+
+[node name="CarBack" type="SubViewportContainer" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="CarBackView" type="SubViewport" parent="GridContainer/CarBack"]
+handle_input_locally = false
+size = Vector2i(574, 648)
+render_target_update_mode = 4
+script = ExtResource("6_c2ep3")
+
+[node name="Control" type="Control" parent="GridContainer/CarBack/CarBackView"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="GridContainer/CarBack/CarBackView/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_ygybg")
+
+[node name="BackWeapon" type="CharacterBody3D" parent="GridContainer/CarBack/CarBackView"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27076, 1)
+script = ExtResource("6_qke7a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GridContainer/CarBack/CarBackView/BackWeapon"]
+mesh = SubResource("CapsuleMesh_riklu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GridContainer/CarBack/CarBackView/BackWeapon"]
+shape = SubResource("CapsuleShape3D_kyiwv")
+
+[node name="Camera3D" type="Camera3D" parent="GridContainer/CarBack/CarBackView/BackWeapon"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.2)
+doppler_tracking = 2
+fov = 102.1
+
+[node name="SteampunkRifle" parent="GridContainer/CarBack/CarBackView/BackWeapon/Camera3D" instance=ExtResource("2_423jb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.3)
